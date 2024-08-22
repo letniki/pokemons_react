@@ -27,3 +27,15 @@ export const loadPokemonByName = createAsyncThunk(
         }
     }
 )
+export const loadPokemonImage=createAsyncThunk(
+    'pokemonsSlice/loadPokemonImage',
+    async(name:string, thunkAPI) => {
+        try{
+            const response = await pokemonsService.getPokemonImage(name);
+            return thunkAPI.fulfillWithValue({ name, imageUrl: response });
+        }catch (e){
+            const error = e as AxiosError;
+            return thunkAPI.rejectWithValue(error?.response?.data);
+        }
+    }
+)

@@ -1,0 +1,9 @@
+.block{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.smallerBlock{
+    width:25vw;
+}

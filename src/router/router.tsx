@@ -2,7 +2,8 @@ import {createBrowserRouter} from "react-router-dom";
 import PokemonsPage from "../pages/PokemonsPage";
 import MainLayout from "../layouts/MainLayout";
 import ErrorComponent from "../components/ErrorComponent";
-import PokemonPageByName from "../pages/PokemonPageByName";
+import PokemonSearchPage from "../pages/PokemonSearchPage";
+import PokemonPageByName from "../pages/PokemonByName/PokemonPageByName";
 
 
 export const router = createBrowserRouter(
@@ -12,7 +13,8 @@ export const router = createBrowserRouter(
             children:[
                 // {index:true, element:<HomePage/>},
                 {path:'pokemon', element:<PokemonsPage/>},
-                {path:'pokemon/:name', element:<PokemonPageByName/>}
+                {path:'pokemon/:name', element:<PokemonPageByName/>},
+                {path:'pokemon/search', element:<PokemonSearchPage/>}
             ]
         }
         ]
