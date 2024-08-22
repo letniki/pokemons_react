@@ -1,7 +1,7 @@
 import axios from "axios";
 import {urls} from "../constants/urls";
 import {IPokemons} from "../models/IPokemons";
-import {IPokemonByName} from "../models/IPokemonByName";
+import {IAbility, IForm, IPokemonByName, IStat, IType} from "../models/IPokemonByName";
 
 const axiosInstance=axios.create({
     baseURL:'https://pokeapi.co/api/v2/',
@@ -20,6 +20,26 @@ const pokemonsService={
     getPokemonByName: async (name:string):Promise<IPokemonByName>=>{
         const response = await axiosInstance.get<IPokemonByName>(urls.pokemons.byName(name));
         return response.data;
+    },
+    getAbilities: async(name:string):Promise<IAbility[]> =>{
+        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
+        return response.data.abilities;
+    },
+    // getAbilitiesDetails: async (names: string[]):Promise<IAbilityDetail[]>=>{
+    //     const response=  await axiosInstance.get(`ability/${name}`);
+    //     return
+    // },
+    getStats:async (name:string):Promise<IStat> =>{
+        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
+        return response.data.stats;
+    },
+    getType:async (name:string):Promise<IType[]> =>{
+        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
+        return response.data.types;
+    },
+    getForms:async (name:string): Promise<IForm[]> =>{
+        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
+        return response.data.forms;
     }
 }
 

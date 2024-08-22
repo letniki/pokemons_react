@@ -1,4 +1,4 @@
-interface IAbility {
+export interface IAbility {
     ability: {
         name: string,
         url: string
@@ -6,7 +6,7 @@ interface IAbility {
     is_hidden:boolean,
     slot:number
 }
-interface IForm{
+export interface IForm{
     name: string,
     url: string
 }
@@ -17,7 +17,7 @@ interface IIndex{
         url: string
     }
 }
-interface IStat{
+export interface IStat{
     base_stat: number,
     effort: number,
     stat: {
@@ -92,7 +92,7 @@ export interface IPokemonByName{
     types: IType[],
     weight: number
 }
-interface IType{
+export interface IType{
     slot: number,
     type: {
         name: string,
