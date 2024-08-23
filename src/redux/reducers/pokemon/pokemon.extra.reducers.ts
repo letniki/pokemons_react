@@ -5,9 +5,10 @@ import {pokemonsService} from "../../../services/api.service";
 
 export const loadPokemons=createAsyncThunk(
     'pokemonsSlice/loadPokemon',
-    async(_, thunkAPI) => {
+    async({page}:{page:number}, thunkAPI) => {
         try{
-            const pokemons = await pokemonsService.getPokemons();
+            const offset = (page - 1) * 20;
+            const pokemons = await pokemonsService.getPokemons(offset);
             return thunkAPI.fulfillWithValue(pokemons);
         }catch (e){
             const error = e as AxiosError;
@@ -39,3 +40,18 @@ export const loadPokemonImage=createAsyncThunk(
         }
     }
 )
+// export const loadAbilitiesDetails = createAsyncThunk(
+//     'pokemonsSlice/loadAbilietiesDetails',
+//     async(name:string, thunkAPI) =>{
+//         try{
+//             const abilities = await pokemonsService.getAbilities(name);
+//             let abilitiesNames = abilities.map(ability => ability.ability.name);
+//             let abilitiesDetails =await pokemonsService.getAbilitiesDetails(abilitiesNames);
+//
+//             return  thunkAPI.fulfillWithValue({abilitiesDetails, abilities});
+//         }catch (e){
+//             const error = e as AxiosError;
+//             return thunkAPI.rejectWithValue(error?.response?.data);
+//         }
+//     }
+// )

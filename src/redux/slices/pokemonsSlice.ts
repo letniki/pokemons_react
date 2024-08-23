@@ -1,19 +1,36 @@
 import {IPokemon} from "../../models/IPokemon";
-import {createSlice, isRejected} from "@reduxjs/toolkit";
-import {loadPokemonByName, loadPokemonImage, loadPokemons} from "../reducers/pokemon/pokemon.extra.reducers";
-import {IPokemonByName} from "../../models/IPokemonByName"
+import {PayloadAction, createSlice, isRejected} from "@reduxjs/toolkit";
+import { loadPokemonByName, loadPokemonImage, loadPokemons} from "../reducers/pokemon/pokemon.extra.reducers";
+import {IAbility, IForm, IPokemonByName, IStat, IType} from "../../models/IPokemonByName"
 
 export type PokemonsState = {
     results:IPokemon[],
     error:string,
     pokemon:IPokemonByName,
     images: {  [key: string]: string  };
+    offset: number;
+    limit:number;
+    abilities:IAbility[];
+    favourite: string[];
+    next: string | null;
+    previous: string | null;
+    // statDetails:IStatDetail[];
+    stat: IStat[],
+    // typeDetails: ITypeDetail[];
+    type:IType[];
+    // formDetails:IFormDetail[];
+    form:IForm[];
 }
 
 const initialState: PokemonsState = {
     results: [],
     error: '',
     images:{},
+    offset: 0,
+    limit: 20,
+    favourite:[],
+    next: null,
+    previous:null,
     pokemon:{
         abilities:[],
         base_experience:0,
@@ -30,7 +47,7 @@ const initialState: PokemonsState = {
         moves: [],
         name: '',
         order: 0,
-        "species": {
+        species: {
             name: '',
             url: ''
         },
@@ -43,7 +60,7 @@ const initialState: PokemonsState = {
                 dream_world: {
                     front_default: ''
                 },
-                "home": {
+                home: {
                     front_default: '', /*{todo this image}*/
                     front_shiny: '',
                 },
@@ -59,25 +76,48 @@ const initialState: PokemonsState = {
                 }
             },
         },
-        "stats": [],
-        "types": [],
+        stats: [],
+        types: [],
         weight: 0
-    }
+    },
+    abilities: [],
+    // statDetails:[],
+    stat:[],
+    // typeDetails:[],
+    type:[],
+    // formDetails:[],
+    form:[]
 }
 
 export const pokemonsSlice = createSlice({
     name: "pokemonsSlice",
     initialState: initialState,
-    reducers:{},
+    reducers:{
+        setOffset:(state, action:PayloadAction<number>) =>{
+            state.offset=action.payload;
+        },
+        setFavourite:(state, action:PayloadAction<string>) =>{
+            state.favourite.push(action.payload);
+        }
+    },
     extraReducers: builder =>{builder.addCase(loadPokemons.fulfilled, (state, action)=>{
-        state.results= action.payload.results;
+        const {results, next , previous} = action.payload;
+        state.results= results;
+        state.next = next;
+        state.previous = previous;
 
     }).addCase(loadPokemonByName.fulfilled, (state, action)=>{
         state.pokemon=action.payload;
     }).addCase(loadPokemonImage.fulfilled, (state, action) =>{
         const { name, imageUrl } = action.payload as { name: string; imageUrl: string };
         state.images[name] = imageUrl;
-        }).addMatcher(isRejected(loadPokemons, loadPokemonByName), (state, action) =>{
+        })
+        // .addCase(loadAbilitiesDetails.fulfilled, (state, action)=>{
+        //     const {abilitiesDetails, abilities} = action.payload as { abilitiesDetails: IAbilityDetail[]; abilities: IAbility[] };
+        //     state.abilitiesDetails = abilitiesDetails;
+        //     state.abilities = abilities;
+        // })
+        .addMatcher(isRejected(loadPokemons, loadPokemonByName), (state, action) =>{
         state.error = action.payload as string;
     })
     }

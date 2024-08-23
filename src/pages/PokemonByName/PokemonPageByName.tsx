@@ -21,7 +21,7 @@ const PokemonPageByName = () => {
                pokemon && (<div>
                     <h1>{pokemon.name}</h1>
                     <img src={`${pokemon.sprites.other.home.front_default}`} alt={pokemon.name}/>
-                    <div className="abilities">
+                    <div className="abilities"><h2>Abilities</h2>
                         {
                             pokemon.abilities.map(poke => {
                                 return (
@@ -34,7 +34,7 @@ const PokemonPageByName = () => {
                             })
                         }
                     </div>
-                    <div className="base-stat">
+                    <div className="base-stat"><h2>Stats:</h2>
                         {
                             pokemon.stats.map(poke => {
                                 return (
@@ -44,8 +44,10 @@ const PokemonPageByName = () => {
                                 )
                             })
                         }
-                    </div>
+                    </div><h2>Types:</h2>
                     <div>{pokemon.types.map(type => <div>type: {type.type.name}</div>)}</div>
+                <div>{pokemon.forms.map(form=><div>{form.name}-{form.url}</div>)}</div>
+                <FormsComponent id={pokemon.id}/>
                 </div>)
             }
         </div>

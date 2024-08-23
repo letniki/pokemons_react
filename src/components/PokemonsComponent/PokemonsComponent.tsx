@@ -10,38 +10,46 @@ interface IProps{
 }
 const PokemonsComponent:FC<IProps> = ({results}) => {
     const dispatch=useAppDispatch();
-    const images = useAppSelector(state => state.pokemonStore.images);
+    const {images, offset, limit, favourite} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
         results.forEach(value=>{
             if(!images[value.name]){
             dispatch(pokemonActions.loadPokemonImage(value.name));
+            console.log(results);
+            console.log(favourite);
             }
         }
     )
     }, [results,images, dispatch]);
     // const nextPage = () => {
-    //     dispatch(pokemonAllActions.setOffset(offset + limit));
+    //     dispatch(pokemonActions.setOffset(offset + limit));
     // };
     //
     // const prevPage = () => {
     //     if (offset > 0) {
-    //         dispatch(pokemonAllActions.setOffset(offset - limit));
+    //         dispatch(pokemonActions.setOffset(offset - limit));
     //     }
     // };
+
+
     return (
         <div className={styles.block}>
-            {results.map(pokemon => <div className={styles.smallerBlock}><Link
-                to={`/pokemon/${pokemon.name}`}>{pokemon.name}
-                <img src={images[pokemon.name]} alt={pokemon.name}/>
-            </Link></div>)}
-            <div>
+            {results.map(pokemon => <div className={styles.smallerBlock}>
+                <button onClick={()=>dispatch(pokemonActions.setFavourite(pokemon.name))}></button>
+                <Link
+                    to={`/pokemon/${pokemon.name}`}>{pokemon.name}
+                    <img src={images[pokemon.name]} alt={pokemon.name}/>
+                </Link>
+
+            </div>)}
+            {/*<div>*/}
             {/*<button onClick={prevPage} disabled={offset === 0}>*/}
             {/*    Prev*/}
             {/*</button>*/}
             {/*<button onClick={nextPage}>*/}
             {/*    Next*/}
             {/*</button>*/}
-            </div>
+            {/*</div>*/}
         </div>
     );
 };

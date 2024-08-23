@@ -2,6 +2,7 @@ import axios from "axios";
 import {urls} from "../constants/urls";
 import {IPokemons} from "../models/IPokemons";
 import {IAbility, IForm, IPokemonByName, IStat, IType} from "../models/IPokemonByName";
+import { IPokemon } from "../models/IPokemon";
 
 const axiosInstance=axios.create({
     baseURL:'https://pokeapi.co/api/v2/',
@@ -9,8 +10,8 @@ const axiosInstance=axios.create({
 });
 
 const pokemonsService={
-    getPokemons:async(): Promise<IPokemons> =>{
-      const response=  await axiosInstance.get<IPokemons>(urls.pokemons.base);
+    getPokemons:async(offset:number): Promise<IPokemons> =>{
+      const response=  await axiosInstance.get<IPokemons>(urls.pokemons.base+`/?offset=${offset}&limit=20`);
       return response.data;
     },
     getPokemonImage: async(name:string):Promise<string> =>{
@@ -26,8 +27,9 @@ const pokemonsService={
         return response.data.abilities;
     },
     // getAbilitiesDetails: async (names: string[]):Promise<IAbilityDetail[]>=>{
-    //     const response=  await axiosInstance.get(`ability/${name}`);
-    //     return
+    //     const response=names.map(name=> axiosInstance.get(`ability/${name}`)
+    //         .then(value=>value.data));
+    //     return response
     // },
     getStats:async (name:string):Promise<IStat> =>{
         const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
