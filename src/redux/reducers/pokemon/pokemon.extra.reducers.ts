@@ -40,6 +40,23 @@ export const loadPokemonImage=createAsyncThunk(
         }
     }
 )
+export const loadFormDetails = createAsyncThunk(
+    'pokemonFormSlice',
+    async (name: string, thunkAPI) => {
+        try {
+            let form = await pokemonsService.getForms(name);
+
+            let formNames = form.map(value => value.name);
+
+            let formDetails = await pokemonsService.getFormsDetails(formNames);
+
+            return  thunkAPI.fulfillWithValue({formDetails, form});
+        } catch (e) {
+            let error = e as AxiosError;
+            return thunkAPI.rejectWithValue(error?.response?.data);
+        }
+    }
+);
 // export const loadAbilitiesDetails = createAsyncThunk(
 //     'pokemonsSlice/loadAbilietiesDetails',
 //     async(name:string, thunkAPI) =>{

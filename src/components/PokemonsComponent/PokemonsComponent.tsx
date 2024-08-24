@@ -10,13 +10,12 @@ interface IProps{
 }
 const PokemonsComponent:FC<IProps> = ({results}) => {
     const dispatch=useAppDispatch();
-    const {images, offset, limit, favourite} = useAppSelector(state => state.pokemonStore);
+    const {images, offset, limit} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
         results.forEach(value=>{
             if(!images[value.name]){
             dispatch(pokemonActions.loadPokemonImage(value.name));
             console.log(results);
-            console.log(favourite);
             }
         }
     )
@@ -31,11 +30,19 @@ const PokemonsComponent:FC<IProps> = ({results}) => {
     //     }
     // };
 
-
+    const saveToLocalStorage =(pokeName:string)=>{
+        if(!localStorage.getItem('favourite')){
+        localStorage.setItem('favourite', JSON.stringify([]));
+        };
+       let oldFavourites = JSON.parse(localStorage['favourite']);
+        oldFavourites.push(pokeName);
+        console.log(oldFavourites);
+        localStorage.setItem('favourite', JSON.stringify(oldFavourites));
+    }
     return (
         <div className={styles.block}>
-            {results.map(pokemon => <div className={styles.smallerBlock}>
-                <button onClick={()=>dispatch(pokemonActions.setFavourite(pokemon.name))}></button>
+            {results.map((pokemon,index) => <div className={styles.smallerBlock} key={index}>
+                <button onClick={()=>saveToLocalStorage(pokemon.name)} >Fav</button>
                 <Link
                     to={`/pokemon/${pokemon.name}`}>{pokemon.name}
                     <img src={images[pokemon.name]} alt={pokemon.name}/>

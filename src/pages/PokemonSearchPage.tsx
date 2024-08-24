@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import { pokemonActions } from '../redux/slices/pokemonsSlice';
 import { IForm } from '../models/IForm';
 import { pokemonsService } from '../services/api.service';
+import { AxiosError } from 'axios';
 
 const PokemonSearchPage = () => {
     const [submittedQuery, setSubmittedQuery] = useState<string>('');
@@ -20,20 +21,25 @@ const PokemonSearchPage = () => {
     let {pokemon, results} = useAppSelector(state => state.pokemonStore);
 
     const onSubmitFormHandler = () => {
-        setSubmittedQuery(query);
+        setSubmittedQuery(query.toLowerCase());
 
     };
     useEffect(() => {
         console.log(submittedQuery);
-        dispatch(pokemonActions.loadPokemonByName(submittedQuery));
+        try{
+            dispatch(pokemonActions.loadPokemonByName(submittedQuery));
+        }catch (e){
+            let error = e as AxiosError;
+            console.log(error);
+        }
     }, [submittedQuery]);
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmitFormHandler)}>
                 <div>
-                    <input type="text" {...register('name')} value={query} onChange={(e) => setQuery(e.target.value)}/>
+                    <input placeholder='Search by Name' type="text" {...register('name')} value={query} onChange={(e) => setQuery(e.target.value)}/>
                 </div>
-                <button type="submit">send</button>
+                <button type="submit">Search</button>
             </form>
             {pokemon.name === submittedQuery && (<div>
                 <h1>{pokemon.name}</h1>
