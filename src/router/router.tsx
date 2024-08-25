@@ -6,6 +6,8 @@ import PokemonSearchPage from "../pages/PokemonSearchPage";
 import PokemonPageByName from "../pages/PokemonByName/PokemonPageByName";
 import FavouriteComponent from "../components/favourite/FavouriteComponent";
 import FormComponent from "../components/FormComponent/FormComponent";
+import SearchByType from "../components/Search/SearchByType";
+import SearchByName from "../components/Search/SearchByName";
 // import SearchById from "../components/Search/SearchById";
 
 
@@ -18,9 +20,10 @@ export const router = createBrowserRouter(
                 {path:'pokemon', element:<PokemonsPage/>},
                 {path:'pokemon/:name', element:<PokemonPageByName/>},
                 {path:'pokemon/search', element:<PokemonSearchPage/>},
+                {path:'pokemon/search/byName', element:<SearchByName/>},
                 // {path:'/pokemon-form/:id', element:<FormComponent/>},
                 {path:'pokemon/favourite', element:<FavouriteComponent/>},
-                // {path:'pokemon/search/byId', element:<SearchById/>}
+                {path:'pokemon/search/byType', element:<SearchByType/>}
             ]
         }
         ]

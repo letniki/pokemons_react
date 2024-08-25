@@ -10,7 +10,7 @@ interface IProps{
 }
 const PokemonsComponent:FC<IProps> = ({results}) => {
     const dispatch=useAppDispatch();
-    const {images, offset, limit} = useAppSelector(state => state.pokemonStore);
+    const {images, offset} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
         results.forEach(value=>{
             if(!images[value.name]){

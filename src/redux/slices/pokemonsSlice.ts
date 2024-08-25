@@ -1,8 +1,9 @@
 import {IPokemon} from "../../models/IPokemon";
 import {PayloadAction, createSlice, isRejected} from "@reduxjs/toolkit";
-import {loadFormDetails, loadPokemonByName, loadPokemonImage, loadPokemons} from "../reducers/pokemon/pokemon.extra.reducers";
+import {loadFormDetails, loadPokemonByAbility, loadPokemonByName, loadPokemonByType, loadPokemonImage, loadPokemons} from "../reducers/pokemon/pokemon.extra.reducers";
 import {IAbility, IForm, IPokemonByName, IStat, IType} from "../../models/IPokemonByName"
 import { IFormDetail } from "../../models/IFormDetail";
+import { ISearch } from "../../models/ISearch";
 
 export type PokemonsState = {
     results:IPokemon[],
@@ -10,17 +11,14 @@ export type PokemonsState = {
     pokemon:IPokemonByName,
     images: {  [key: string]: string  };
     offset: number;
-    limit:number;
-    abilities:IAbility[];
     favourite: string[];
     next: string | null;
     previous: string | null;
-    // statDetails:IStatDetail[];
-    stat: IStat[],
-    // typeDetails: ITypeDetail[];
-    type:IType[];
+    // stat: IStat[],
     formDetails:IFormDetail[];
     form:IForm[];
+    ability:ISearch;
+    type:ISearch;
 }
 
 const initialState: PokemonsState = {
@@ -28,7 +26,6 @@ const initialState: PokemonsState = {
     error: '',
     images:{},
     offset: 0,
-    limit: 20,
     favourite:[],
     next: null,
     previous:null,
@@ -83,11 +80,15 @@ const initialState: PokemonsState = {
         types: [],
         weight: 0
     },
-    abilities: [],
-    // statDetails:[],
-    stat:[],
-    // typeDetails:[],
-    type:[],
+    ability:{
+        name:'',
+        pokemon:[]
+    },
+    // stat:[],
+    type:{
+        name:'',
+        pokemon:[]
+    }
 }
 
 export const pokemonsSlice = createSlice({
@@ -119,6 +120,10 @@ export const pokemonsSlice = createSlice({
         .addCase(loadPokemonImage.fulfilled, (state, action) =>{
         const { name, imageUrl } = action.payload as { name: string; imageUrl: string };
         state.images[name] = imageUrl;
+        }).addCase(loadPokemonByType.fulfilled, (state, action) => {
+            state.type = action.payload;
+        }).addCase(loadPokemonByAbility.fulfilled, (state, action) => {
+            state.ability = action.payload;
         })
         // .addCase(loadAbilitiesDetails.fulfilled, (state, action)=>{
         //     const {abilitiesDetails, abilities} = action.payload as { abilitiesDetails: IAbilityDetail[]; abilities: IAbility[] };
@@ -136,5 +141,7 @@ export const pokemonActions ={
     loadPokemons,
     loadPokemonByName,
     loadPokemonImage,
-    loadFormDetails
+    loadFormDetails,
+    loadPokemonByAbility,
+    loadPokemonByType
 }

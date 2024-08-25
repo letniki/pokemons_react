@@ -72,3 +72,27 @@ export const loadFormDetails = createAsyncThunk(
 //         }
 //     }
 // )
+export const loadPokemonByAbility = createAsyncThunk(
+    'pokemonsSlice/loadPokemonByAbility',
+    async (ability: string, thunkAPI) => {
+        try{
+            const response = await pokemonsService.searchByAbility(ability);
+            return thunkAPI.fulfillWithValue(response);
+        }catch (e){
+           const error = e as AxiosError;
+           return thunkAPI.rejectWithValue(error?.response?.data)
+        }
+    }
+)
+export const loadPokemonByType = createAsyncThunk(
+    'pokemonsSlice/loadPokemonByType',
+    async(type:string, thunkAPI)=>{
+        try{
+            const response = await pokemonsService.searchByType(type);
+            return thunkAPI.fulfillWithValue(response);
+        }catch(e){
+            const error = e as AxiosError;
+            return thunkAPI.rejectWithValue(error?.response?.data);
+        }
+    }
+)

@@ -6,6 +6,7 @@ import { IEvolution } from "../models/IEvolution";
 import { IEvolutionForms } from "../models/IEvolutionForms";
 import { IFormInfo } from "../models/IFormInfo";
 import { IFormDetail } from "../models/IFormDetail";
+import { ISearch } from "../models/ISearch";
 
 const axiosInstance=axios.create({
     baseURL:'https://pokeapi.co/api/v2/',
@@ -42,14 +43,25 @@ const pokemonsService={
         const response=  await axiosInstance.get<IFormInfo>(`pokemon-form/${id}`);
         return response.data;
     },
+    getImageById : (id:string):string =>{
+        return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+    },
     // getAbilitiesDetails: async (names: string[]):Promise<IAbilityDetail[]>=>{
     //     const response=names.map(name=> axiosInstance.get(`ability/${name}`)
     //         .then(value=>value.data));
     //     return response
     // },
-    getStats:async (name:string):Promise<IStat> =>{
-        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
-        return response.data.stats;
+    // getStats:async (name:string):Promise<IStat> =>{
+    //     const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
+    //     return response.data.stats;
+    // },
+    searchByType: async (type:string):Promise<ISearch> => {
+      const response = await axiosInstance.get(`/type/${type}`);
+      return response.data;
+      },
+    searchByAbility: async (ability:string):Promise<ISearch> => {
+        const response = await axiosInstance.get(`/ability/${ability}`);
+        return response.data;
     },
     getForms: async (name: string) : Promise<IForm[]> => {
         const response = await axiosInstance.get(`/pokemon/${name}`);
@@ -60,10 +72,10 @@ const pokemonsService={
             .then(response => response.data));
         return Promise.all(response);
     },
-    getType:async (name:string):Promise<IType[]> =>{
-        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
-        return response.data.types;
-    }
+    // getType:async (name:string):Promise<IType[]> =>{
+    //     const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
+    //     return response.data.types;
+    // }
 }
 
 

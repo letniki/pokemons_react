@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 const PokemonsPage = () => {
     const [query] = useSearchParams({page: '1'})
     const dispatch = useAppDispatch();
-    let {results, error, limit,previous, next} = useAppSelector(state => state.pokemonStore);
+    let {results, error,previous, next} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
         const currentPage = query.get('page');
         const page = currentPage ? Number(currentPage) : 1;
@@ -21,12 +21,6 @@ const PokemonsPage = () => {
             }
             <div>
                 <PaginationComponent next={next} prev={previous}/>
-                {/*<button onClick={prevPage} disabled={offset === 0}>*/}
-                {/*    Prev*/}
-                {/*</button>*/}
-                {/*<button onClick={nextPage}>*/}
-                {/*    Next*/}
-                {/*</button>*/}
             </div>
         </div>
     );
