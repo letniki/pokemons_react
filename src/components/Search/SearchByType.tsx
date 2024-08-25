@@ -36,7 +36,7 @@ const SearchByType = () => {
             <button type='submit'>Search</button>
         </form>
         <div>
-            {type && <div>{type.pokemon.map(pokemon=><Link to={`/pokemon/${pokemon.pokemon.name}`}>
+            {type.name === submittedQuery && <div>{type.pokemon.map((pokemon,index)=><Link key={index} to={`/pokemon/${pokemon.pokemon.name}`}>
                <PokemonImage url={pokemon.pokemon.url}/>
             <h3>{pokemon.pokemon.name}</h3></Link>)}</div>}
         </div>

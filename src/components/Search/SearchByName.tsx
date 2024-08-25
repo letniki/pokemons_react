@@ -12,11 +12,7 @@ const PokemonSearchPage = () => {
     let {
         register,
         handleSubmit
-    } = useForm<IForm>({
-        defaultValues: {
-            name: 'pikachu'
-        }
-    });
+    } = useForm<IForm>();
     const dispatch = useAppDispatch();
     let {pokemon, results} = useAppSelector(state => state.pokemonStore);
 
@@ -32,7 +28,7 @@ const PokemonSearchPage = () => {
             let error = e as AxiosError;
             console.log(error);
         }
-    }, [submittedQuery]);
+    }, [submittedQuery, dispatch]);
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmitFormHandler)}>
@@ -46,29 +42,17 @@ const PokemonSearchPage = () => {
                 <img src={`${pokemon.sprites.other.home.front_default}`} alt={pokemon.name}/>
                 <div className="abilities">
                     {
-                        pokemon.abilities.map(poke => {
-                            return (
-                                <>
-                                    <div className="group">
+                        pokemon.abilities.map((poke,index) => <div className="group" key={index}>
                                         <h3>{poke.ability.name}</h3>
-                                    </div>
-                                </>
-                            )
-                        })
+                        </div>)
                     }
                 </div>
                 <div className="base-stat">
                     {
-                        pokemon.stats.map(poke => {
-                            return (
-                                <>
-                                    <h3>{poke.stat.name}:{poke.base_stat}</h3>
-                                </>
-                            )
-                        })
+                        pokemon.stats.map((poke,index) =><h3 key={index}>{poke.stat.name}:{poke.base_stat}</h3>)
                     }
                 </div>
-                <div>{pokemon.types.map(type => <div>type: {type.type.name}</div>)}</div>
+                <div>{pokemon.types.map((type,index) => <div key={index}>type: {type.type.name}</div>)}</div>
             </div>)
             }
         </div>

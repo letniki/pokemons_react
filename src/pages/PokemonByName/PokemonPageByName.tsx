@@ -42,69 +42,47 @@ const PokemonPageByName = () => {
                 <div className={styles.bigBlock}>
                     <div className={styles.detailsBlock}><h2>Abilities</h2>
                         {
-                            pokemon.abilities.map(poke => {
-                                return (
-                                    <>
-                                        <div className={styles.detailsSmallerBlock}>
+                            pokemon.abilities.map((poke,index) =><div className={styles.detailsSmallerBlock} key={index}>
                                             <h3>{poke.ability.name}</h3>
-                                        </div>
-                                    </>
-                                )
-                            })
+                            </div>)
                         }
                     </div>
                     <div className="base-stat"><h2>Stats:</h2>
                         {
-                            pokemon.stats.map(poke => {
-                                return (
-                                    <>
-                                        <h3>{poke.stat.name}:{poke.base_stat}</h3>
-                                    </>
-                                )
-                            })
+                            pokemon.stats.map((poke,index) =><h3 key={index}>{poke.stat.name}:{poke.base_stat}</h3>
+                            )
                         }
                     </div>
                     <h2>Types:</h2>
-                    <div>{pokemon.types.map(type => <div> {type.type.name}</div>)}</div>
+                    <div>{pokemon.types.map((type,index) => <div key={index}> {type.type.name}</div>)}</div>
                     <h3>Forms</h3>
-                    <div>{pokemon.forms.map(form => <button onClick={() => handleButtonClick(form.name)}>{form.name}
+                    <div>{pokemon.forms.map((form,index) => <button onClick={() => handleButtonClick(form.name)} key={index}>{form.name}
                     </button>)}</div></div>
                     <h4>Evolution</h4>
                     <FormsComponent id={pokemon.id.toString()}/>
 
-
                     {formDetails.map(formDetail => (
-                        (nameForm === formDetail.name && <div className={styles.bigBlock}><div><h2>{formDetail.name}</h2>
+                        (nameForm === formDetail.name && <div className={styles.bigBlock} key={formDetail.id}><div><h2>{formDetail.name}</h2>
                             <img src={`${formDetail.sprites.front_default}`} alt={formDetail.name}/>
                             <img src={`${formDetail.sprites.back_default}`} alt={formDetail.name}/>
                             <img src={`${formDetail.sprites.front_shiny}`} alt={formDetail.name}/>
                             <img src={`${formDetail.sprites.back_shiny}`} alt={formDetail.name}/></div>
                             <div className={styles.bigBlock}><div className="abilities"><h2>Abilities</h2>
                                 {
-                                    pokemon.abilities.map(poke => {
-                                        return (
-                                            <>
-                                                <div className="group">
+                                    pokemon.abilities.map((poke,index) =>
+                                                <div className="group" key={index}>
                                                     <h3>{poke.ability.name}</h3>
                                                 </div>
-                                            </>
-                                        )
-                                    })
+                                    )
                                 }
                             </div>
                             <div className="base-stat"><h2>Stats:</h2>
                                 {
-                                    pokemon.stats.map(poke => {
-                                        return (
-                                            <>
-                                                <h3>{poke.stat.name}:{poke.base_stat}</h3>
-                                            </>
-                                        )
-                                    })
+                                    pokemon.stats.map((poke,index) => <h3 key={index}>{poke.stat.name}:{poke.base_stat}</h3>)
                                 }
                             </div>
                             <h2>Types:</h2>
-                            <div>{formDetail.types.map(type => <div>type: {type.type.name}</div>)}</div></div>
+                            <div>{formDetail.types.map((type,index) => <div key={index}>type: {type.type.name}</div>)}</div></div>
                         </div>)
                     ))}
                 </div>)

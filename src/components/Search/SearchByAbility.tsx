@@ -30,7 +30,7 @@ const SearchByAbility = () => {
                 <button type="submit">Search</button>
             </form>
             <div>
-                {ability && <div>{ability.pokemon.map(pokemon => <Link to={`/pokemon/${pokemon.pokemon.name}`}>
+                {ability.name === submittedQuery  && <div>{ability.pokemon.map((pokemon,index) => <Link key={index} to={`/pokemon/${pokemon.pokemon.name}`}>
                     <PokemonImage url={pokemon.pokemon.url}/>
                     <h3>{pokemon.pokemon.name}</h3></Link>)}</div>}
             </div>

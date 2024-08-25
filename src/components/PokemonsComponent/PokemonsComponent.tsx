@@ -22,14 +22,13 @@ const PokemonsComponent:FC<IProps> = ({results}) => {
     }, [results, images, dispatch]);
 
     const saveToLocalStorage = (pokeName: string) => {
-        if (!localStorage.getItem('favourite')) {
-            localStorage.setItem('favourite', JSON.stringify([]));
+        if (!localStorage.getItem('favorite')) {
+            localStorage.setItem('favorite', JSON.stringify([]));
         }
-        ;
-        let oldFavourites = JSON.parse(localStorage['favourite']);
-        oldFavourites.push(pokeName);
-        console.log(oldFavourites);
-        localStorage.setItem('favourite', JSON.stringify(oldFavourites));
+        let oldFavorites = JSON.parse(localStorage['favorite']);
+        oldFavorites.push(pokeName);
+        console.log(oldFavorites);
+        localStorage.setItem('favorite', JSON.stringify(oldFavorites));
     }
     return (
         <div className={styles.block}>

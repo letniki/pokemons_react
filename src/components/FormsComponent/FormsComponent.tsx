@@ -3,7 +3,7 @@ import {IEvolutionForms} from "../../models/IEvolutionForms";
 import FormComponent from "../FormComponent/FormComponent";
 import { pokemonsService } from '../../services/api.service';
 import { IEvolution } from '../../models/IEvolution';
-import { AxiosError } from 'axios';
+import {AxiosError} from "axios";
 
 interface IProps {
     id: string
@@ -28,13 +28,12 @@ const FormsComponent: FC<IProps> = ({id}) => {
         const fetchForms = async () => {
             if (evolutionChain?.evolution_chain.url) {
                 const path = evolutionChain.evolution_chain.url.replace('https://pokeapi.co/api/v2', '');
-                console.log('Fetching forms from path:', path);
-
                 try {
                     const response = await pokemonsService.getAllForms(path);
                     setForms(response);
-                } catch (error) {
-                    console.error('Error fetching forms:', error);
+                } catch (e) {
+                   const error = e as AxiosError;
+                    console.error(error?.response?.data);
                 }
             }
         };
