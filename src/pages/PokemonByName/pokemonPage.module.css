@@ -1,0 +1,41 @@
+.block{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100vw;
+    flex-wrap: wrap;
+    background-color: aquamarine;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+.smallerBlock{
+    width:80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: aquamarine;
+}
+.image{
+    width:25vw;
+}
+.detailsBlock{
+    /*width:80%;*/
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.detailsSmallerBlock{
+    color:red
+}
+.bigBlock{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100vw;
+    flex-wrap: wrap;
+    background-color: aquamarine;
+    align-content: center;
+    align-items: center;
+}

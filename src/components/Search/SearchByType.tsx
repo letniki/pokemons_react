@@ -31,9 +31,9 @@ const SearchByType = () => {
             <div>
             <form onSubmit={handleSubmit(onSubmitFormHandler)}>
             <div>
-                <input type='text' placeholder='Search Pokemon By Type' {...register('type')} value={query} onChange={(e) => setQuery(e.target.value)}/>
+                <input type='text' placeholder='Search Pokemons By Type' {...register('type')} value={query} onChange={(e) => setQuery(e.target.value)}/>
             </div>
-            <button type='submit'>send</button>
+            <button type='submit'>Search</button>
         </form>
         <div>
             {type && <div>{type.pokemon.map(pokemon=><Link to={`/pokemon/${pokemon.pokemon.name}`}>

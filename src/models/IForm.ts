@@ -4,3 +4,6 @@ export interface IForm{
 export interface ISearchByType{
     type:string
 }
+export interface ISearchByAbility{
+    ability:string
+}

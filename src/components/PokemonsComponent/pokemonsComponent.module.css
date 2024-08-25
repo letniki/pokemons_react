@@ -1,9 +1,49 @@
 .block{
     display: flex;
-    width: 100%;
+    height:100%;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    background-color: aquamarine;
+}
+.image{
+    width:180px;
+
+}
+.Link{
+    text-decoration: none;
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*border:1px solid blue;*/
 }
 .smallerBlock{
-    width:25vw;
+    width:20vw;
+    height:40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border:1px solid blue;
+    margin: 20px;
+    justify-content: space-evenly;
+}
+.buttonBlock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+}
+.heart{
+    font-size: 20px;
+    color: blue;
+
+}
+.heart:hover{
+    transition:300ms;
+    color: #ff0000;
+}
+.heart:active{
+    color: firebrick;
 }

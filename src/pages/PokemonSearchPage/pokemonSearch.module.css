@@ -1,0 +1,7 @@
+.block{
+    display: flex;
+    /*flex-direction: column;*/
+    height: 10vh;
+    align-items: center;
+    justify-content: space-around;
+}

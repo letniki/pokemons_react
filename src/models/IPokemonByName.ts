@@ -72,7 +72,7 @@ export interface IPokemonByName{
             dream_world: {
                 front_default: string
             },
-            "home": {
+            home: {
                 front_default: string, /*{todo this image}*/
                 front_shiny: string,
             },

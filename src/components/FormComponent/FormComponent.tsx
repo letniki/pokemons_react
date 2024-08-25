@@ -1,8 +1,9 @@
 import React, {FC, useEffect, useState} from 'react';
 import {IChain, IEvolutionForms} from "../../models/IEvolutionForms";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
-import {formAction} from "../../redux/slices/FormSlice";
 import FormInfoComponent from '../FormInfoComponent/FormInfoComponent';
+import PokemonImage from "../PokemonImage/PokemonImage";
+import {pokemonActions} from "../../redux/slices/pokemonsSlice";
 
 interface IProps {
     forms: IEvolutionForms
@@ -11,7 +12,7 @@ interface IProps {
 const FormComponent:FC<IProps> = ({forms}) => {
 
     const dispatch = useAppDispatch()
-    let {form} = useAppSelector(state => state.FormSlice)
+    let {evolution} = useAppSelector(state => state.pokemonStore)
 
     const [idForm, setIdForm] = useState<string | null>(null)
 
@@ -23,13 +24,11 @@ const FormComponent:FC<IProps> = ({forms}) => {
             setIdForm(id);
         }
 
-
         return (
             <div >
                 <div >
                     <button onClick={() => handleButtonClick(chain.species.url)}>
                         {chain.species.name}
-                        {/*<PokemonImage url={chain.species.url}/>*/}
                     </button>
                 </div>
                 {chain.evolves_to.length > 0 && (
@@ -47,14 +46,14 @@ const FormComponent:FC<IProps> = ({forms}) => {
 
     useEffect(() => {
         if (idForm)
-            dispatch(formAction.loadForm(idForm))
+            dispatch(pokemonActions.loadEvolution(idForm))
     }, [idForm, dispatch]);
 
     return (
         <div>
             {renderEvolutionChain(forms.chain)}
             <hr/>
-            {idForm && <FormInfoComponent form={form} />}
+            {idForm && <FormInfoComponent form={evolution} />}
         </div>
     );
 };

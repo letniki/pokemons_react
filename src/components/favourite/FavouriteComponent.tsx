@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {useAppDispatch, useAppSelector } from '../../redux/store';
 import { pokemonActions } from '../../redux/slices/pokemonsSlice';
 import { Link } from 'react-router-dom';
-import { pokemonsService } from '../../services/api.service';
 
 
 const FavouriteComponent:FC = () => {

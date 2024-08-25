@@ -1,9 +1,18 @@
 import {IPokemon} from "../../models/IPokemon";
 import {PayloadAction, createSlice, isRejected} from "@reduxjs/toolkit";
-import {loadFormDetails, loadPokemonByAbility, loadPokemonByName, loadPokemonByType, loadPokemonImage, loadPokemons} from "../reducers/pokemon/pokemon.extra.reducers";
+import {
+    loadEvolution,
+    loadFormDetails,
+    loadPokemonByAbility,
+    loadPokemonByName,
+    loadPokemonByType,
+    loadPokemonImage,
+    loadPokemons
+} from "../reducers/pokemon/pokemon.extra.reducers";
 import {IAbility, IForm, IPokemonByName, IStat, IType} from "../../models/IPokemonByName"
 import { IFormDetail } from "../../models/IFormDetail";
 import { ISearch } from "../../models/ISearch";
+import {IFormInfo} from "../../models/IFormInfo";
 
 export type PokemonsState = {
     results:IPokemon[],
@@ -19,6 +28,7 @@ export type PokemonsState = {
     form:IForm[];
     ability:ISearch;
     type:ISearch;
+    evolution: IFormInfo
 }
 
 const initialState: PokemonsState = {
@@ -31,6 +41,20 @@ const initialState: PokemonsState = {
     previous:null,
     formDetails:[],
     form:[],
+    evolution: {
+        id: 0,
+        name: '',
+        is_mega: false,
+        is_battle_only: false,
+        is_default: false,
+        sprites: {
+            back_shiny: '',
+            front_shiny: ''
+        },
+        version_group: {
+            name: ''
+        }
+    },
     pokemon:{
         abilities:[],
         base_experience:0,
@@ -116,7 +140,9 @@ export const pokemonsSlice = createSlice({
             state.formDetails = formDetails;
             state.form = form;
         }
-    )
+    ) .addCase(loadEvolution.fulfilled, (state, action) => {
+        state.evolution = action.payload
+    })
         .addCase(loadPokemonImage.fulfilled, (state, action) =>{
         const { name, imageUrl } = action.payload as { name: string; imageUrl: string };
         state.images[name] = imageUrl;
@@ -142,6 +168,7 @@ export const pokemonActions ={
     loadPokemonByName,
     loadPokemonImage,
     loadFormDetails,
+    loadEvolution,
     loadPokemonByAbility,
     loadPokemonByType
 }

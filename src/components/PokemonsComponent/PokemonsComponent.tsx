@@ -9,32 +9,24 @@ interface IProps{
     results:IPokemon[]
 }
 const PokemonsComponent:FC<IProps> = ({results}) => {
-    const dispatch=useAppDispatch();
+    const dispatch = useAppDispatch();
     const {images, offset} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
-        results.forEach(value=>{
-            if(!images[value.name]){
-            dispatch(pokemonActions.loadPokemonImage(value.name));
-            console.log(results);
+        results.forEach(value => {
+                if (!images[value.name]) {
+                    dispatch(pokemonActions.loadPokemonImage(value.name));
+                    console.log(results);
+                }
             }
-        }
-    )
-    }, [results,images, dispatch]);
-    // const nextPage = () => {
-    //     dispatch(pokemonActions.setOffset(offset + limit));
-    // };
-    //
-    // const prevPage = () => {
-    //     if (offset > 0) {
-    //         dispatch(pokemonActions.setOffset(offset - limit));
-    //     }
-    // };
+        )
+    }, [results, images, dispatch]);
 
-    const saveToLocalStorage =(pokeName:string)=>{
-        if(!localStorage.getItem('favourite')){
-        localStorage.setItem('favourite', JSON.stringify([]));
-        };
-       let oldFavourites = JSON.parse(localStorage['favourite']);
+    const saveToLocalStorage = (pokeName: string) => {
+        if (!localStorage.getItem('favourite')) {
+            localStorage.setItem('favourite', JSON.stringify([]));
+        }
+        ;
+        let oldFavourites = JSON.parse(localStorage['favourite']);
         oldFavourites.push(pokeName);
         console.log(oldFavourites);
         localStorage.setItem('favourite', JSON.stringify(oldFavourites));
@@ -42,21 +34,20 @@ const PokemonsComponent:FC<IProps> = ({results}) => {
     return (
         <div className={styles.block}>
             {results.map((pokemon,index) => <div className={styles.smallerBlock} key={index}>
-                <button onClick={()=>saveToLocalStorage(pokemon.name)} >Fav</button>
-                <Link
-                    to={`/pokemon/${pokemon.name}`}>{pokemon.name}
-                    <img src={images[pokemon.name]} alt={pokemon.name}/>
+
+                <Link className={styles.Link}
+                      to={`/pokemon/${pokemon.name}`}>
+                    <img className={styles.image} src={images[pokemon.name]} alt={pokemon.name}/>
+                    <h4>{pokemon.name}</h4>
                 </Link>
+                <button id='heart' className={styles.buttonBlock} onClick={() => saveToLocalStorage(pokemon.name)}>
+                    <div className={styles.heart}>
+                        &#10084;
+                    </div>
+                </button>
+
 
             </div>)}
-            {/*<div>*/}
-            {/*<button onClick={prevPage} disabled={offset === 0}>*/}
-            {/*    Prev*/}
-            {/*</button>*/}
-            {/*<button onClick={nextPage}>*/}
-            {/*    Next*/}
-            {/*</button>*/}
-            {/*</div>*/}
         </div>
     );
 };
