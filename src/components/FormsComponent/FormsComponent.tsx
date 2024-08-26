@@ -53,7 +53,7 @@ const FormsComponent: FC<IProps> = ({id}) => {
                 <h2>EVOLUTION</h2>
                 <FormComponent forms={forms} /></div>)
             }
-</>
+        </>
     );
 }
 

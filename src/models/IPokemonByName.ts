@@ -35,7 +35,7 @@ interface IDetails{
         name: string,
         url: string
     }
-};
+}
 interface IMove{
     move: {
         name: string,
@@ -73,7 +73,7 @@ export interface IPokemonByName{
                 front_default: string
             },
             home: {
-                front_default: string, /*{todo this image}*/
+                front_default: string,
                 front_shiny: string,
             },
             official_artwork: {
@@ -83,7 +83,7 @@ export interface IPokemonByName{
             showdown: {
                 back_default: string,
                 back_shiny: string,
-                front_default: string, //gifs
+                front_default: string,
                 front_shiny: string,
             }
         },

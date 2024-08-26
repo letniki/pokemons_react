@@ -6,7 +6,6 @@ interface IProps{
 }
 const PokemonImage:FC<IProps> = ({url}) => {
     const id= url.split('/')[url.split('/').length - 2];
-    console.log(id);
     const pokemonImage= pokemonsService.getImageById(id);
     return (
         <div>

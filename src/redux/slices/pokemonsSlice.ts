@@ -112,11 +112,7 @@ const initialState: PokemonsState = {
 export const pokemonsSlice = createSlice({
     name: "pokemonsSlice",
     initialState: initialState,
-    reducers:{
-        // setOffset:(state, action:PayloadAction<number>) =>{
-        //     state.offset=action.payload;
-        // },
-    },
+    reducers:{},
     extraReducers: builder => {
         builder
             .addCase(loadPokemons.fulfilled, (state, action) => {
@@ -127,24 +123,21 @@ export const pokemonsSlice = createSlice({
 
             }).addCase(loadPokemonByName.fulfilled, (state, action) => {
             state.pokemon = action.payload;
-        }).addCase(
-            loadFormDetails.fulfilled, (state, action) => {
+            }).addCase(loadFormDetails.fulfilled, (state, action) => {
                 const {formDetails, form} = action.payload as { formDetails: IFormDetail[]; form: IForm[] };
                 state.formDetails = formDetails;
                 state.form = form;
-            }
-        ).addCase(loadEvolution.fulfilled, (state, action) => {
+            }).addCase(loadEvolution.fulfilled, (state, action) => {
             state.evolution = action.payload
-        })
-            .addCase(loadPokemonImage.fulfilled, (state, action) => {
+            }).addCase(loadPokemonImage.fulfilled, (state, action) => {
                 const {name, imageUrl} = action.payload as { name: string; imageUrl: string };
                 state.images[name] = imageUrl;
             }).addCase(loadPokemonByType.fulfilled, (state, action) => {
             state.type = action.payload;
-        }).addCase(loadPokemonByAbility.fulfilled, (state, action) => {
+            }).addCase(loadPokemonByAbility.fulfilled, (state, action) => {
             state.ability = action.payload;
-        })
-            .addMatcher(isRejected(loadPokemons, loadPokemonByName), (state, action) => {
+            })
+            .addMatcher(isRejected(loadPokemons, loadPokemonByName, loadFormDetails, loadEvolution, loadPokemonImage, loadPokemonByType, loadPokemonByAbility), (state, action) => {
                 state.error = action.payload as string;
             })
     }

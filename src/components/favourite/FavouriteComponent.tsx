@@ -18,7 +18,6 @@ const FavouriteComponent:FC = () => {
         }
     }
 
-    // const pokemonImage= pokemonsService.getImageById();
     return (
         <div >
             {favoriteNames && <div className={styles.biggerBlock} >{favoriteNames.map((name:string, index) =>

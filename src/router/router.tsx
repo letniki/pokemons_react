@@ -21,7 +21,6 @@ export const router = createBrowserRouter(
                 {path:'pokemon/search', element:<PokemonSearchPage/>},
                 {path:'pokemon/search/byName', element:<SearchByName/>},
                 {path:'pokemon/search/byAbility', element:<SearchByAbility/>},
-                // {path:'/pokemon-form/:id', element:<FormComponent/>},
                 {path:'pokemon/favourite', element:<FavouriteComponent/>},
                 {path:'pokemon/search/byType', element:<SearchByType/>}
             ]

@@ -40,7 +40,6 @@ const FormComponent:FC<IProps> = ({forms}) => {
 
         );
     };
-
     useEffect(() => {
         if (idForm)
             dispatch(pokemonActions.loadEvolution(idForm))

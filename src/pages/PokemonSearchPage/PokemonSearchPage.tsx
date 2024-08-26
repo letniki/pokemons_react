@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 
 const PokemonSearchPage = () => {
 
-
     return (
         <div className={styles.block}>
             <Link className={styles.Link} to={'byType'}>Search By Type</Link>

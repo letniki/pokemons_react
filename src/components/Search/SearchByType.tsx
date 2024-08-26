@@ -21,12 +21,10 @@ const SearchByType = () => {
             setSubmittedQuery(query.toLowerCase());
         };
             useEffect(() => {
-                console.log(submittedQuery);
                 if (submittedQuery) {
                     dispatch(pokemonActions.loadPokemonByType(submittedQuery));
                 }
         }, [submittedQuery, dispatch]);
-            console.log(type);
             return (
             <div>
             <form onSubmit={handleSubmit(onSubmitFormHandler)} className={styles.form}>

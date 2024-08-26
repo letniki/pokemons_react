@@ -20,10 +20,8 @@ const PokemonSearchPage = () => {
 
     const onSubmitFormHandler = () => {
         setSubmittedQuery(query.toLowerCase());
-
     };
     useEffect(() => {
-        console.log(submittedQuery);
         try{
             dispatch(pokemonActions.loadPokemonByName(submittedQuery));
         }catch (e){

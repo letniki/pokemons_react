@@ -25,9 +25,6 @@
 .input{
     border-radius: 10px;
     border:none;
-    /*height:3vh;*/
-    /*padding:10px;*/
-    /*border-bottom: 2px solid red;*/
     width: 90%;
     color:white;
     background-color: #3CBC8D;
@@ -59,6 +56,6 @@ input::placeholder{
 .h3{
     display: flex;
     justify-content: center;
-    /*color: darkblue;*/
+    color: darkblue;
     text-decoration: none;
 }

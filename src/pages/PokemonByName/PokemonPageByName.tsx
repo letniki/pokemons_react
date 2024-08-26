@@ -16,7 +16,6 @@ const PokemonPageByName = () => {
         }
 
     }, [name, dispatch]);
-    console.log(pokemon);
     const [nameForm, setNameForm] = useState<string>('');
     const handleButtonClick = (formName: string)=>{
        return setNameForm(formName);

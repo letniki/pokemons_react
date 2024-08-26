@@ -43,11 +43,11 @@ const pokemonsService={
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
     },
     searchByType: async (type:string):Promise<ISearch> => {
-      const response = await axiosInstance.get(`type/${type}`);
+      const response = await axiosInstance.get<ISearch>(`type/${type}`);
       return response.data;
       },
     searchByAbility: async (ability:string):Promise<ISearch> => {
-        const response = await axiosInstance.get(`ability/${ability}`);
+        const response = await axiosInstance.get<ISearch>(`ability/${ability}`);
         return response.data;
     },
     getForms: async (name: string) : Promise<IForm[]> => {

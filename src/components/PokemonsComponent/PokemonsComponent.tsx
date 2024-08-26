@@ -15,7 +15,6 @@ const PokemonsComponent:FC<IProps> = ({results}) => {
         results.forEach(value => {
                 if (!images[value.name]) {
                     dispatch(pokemonActions.loadPokemonImage(value.name));
-                    console.log(results);
                 }
             }
         )

@@ -45,11 +45,8 @@ export const loadFormDetails = createAsyncThunk(
     async (name: string, thunkAPI) => {
         try {
             let form = await pokemonsService.getForms(name);
-
             let formNames = form.map(value => value.name);
-
             let formDetails = await pokemonsService.getFormsDetails(formNames);
-
             return  thunkAPI.fulfillWithValue({formDetails, form});
         } catch (e) {
             let error = e as AxiosError;
@@ -57,7 +54,10 @@ export const loadFormDetails = createAsyncThunk(
         }
     }
 );
-export const loadEvolution = createAsyncThunk  ('FormSlice/loadForm', async (id:string, thunkAPI) => {
+
+export const loadEvolution = createAsyncThunk  (
+    'pokemonsSlice/loadEvolution',
+    async (id:string, thunkAPI) => {
     try {
         const form = await pokemonsService.getFormInfo(id)
         return thunkAPI.fulfillWithValue(form)
