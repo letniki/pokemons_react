@@ -1,7 +1,7 @@
 import axios from "axios";
 import {urls} from "../constants/urls";
 import {IPokemons} from "../models/IPokemons";
-import {IAbility, IForm, IPokemonByName, IStat, IType} from "../models/IPokemonByName";
+import {IForm, IPokemonByName} from "../models/IPokemonByName";
 import { IEvolution } from "../models/IEvolution";
 import { IEvolutionForms } from "../models/IEvolutionForms";
 import { IFormInfo } from "../models/IFormInfo";
@@ -27,12 +27,8 @@ const pokemonsService={
         const response = await axiosInstance.get<IPokemonByName>(urls.pokemons.byName(name));
         return response.data;
     },
-    getAbilities: async(name:string):Promise<IAbility[]> =>{
-        const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
-        return response.data.abilities;
-    },
     getEvolutionChain: async(id:string): Promise<IEvolution> => {
-        const response = await axiosInstance.get<IEvolution>(`/pokemon-species/${id}`);
+        const response = await axiosInstance.get<IEvolution>(`pokemon-species/${id}`);
         return response.data;
     },
     getAllForms: async(path:string): Promise<IEvolutionForms> => {
@@ -46,36 +42,23 @@ const pokemonsService={
     getImageById : (id:string):string =>{
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
     },
-    // getAbilitiesDetails: async (names: string[]):Promise<IAbilityDetail[]>=>{
-    //     const response=names.map(name=> axiosInstance.get(`ability/${name}`)
-    //         .then(value=>value.data));
-    //     return response
-    // },
-    // getStats:async (name:string):Promise<IStat> =>{
-    //     const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
-    //     return response.data.stats;
-    // },
     searchByType: async (type:string):Promise<ISearch> => {
-      const response = await axiosInstance.get(`/type/${type}`);
+      const response = await axiosInstance.get(`type/${type}`);
       return response.data;
       },
     searchByAbility: async (ability:string):Promise<ISearch> => {
-        const response = await axiosInstance.get(`/ability/${ability}`);
+        const response = await axiosInstance.get(`ability/${ability}`);
         return response.data;
     },
     getForms: async (name: string) : Promise<IForm[]> => {
-        const response = await axiosInstance.get(`/pokemon/${name}`);
+        const response = await axiosInstance.get(`pokemon/${name}`);
         return response.data.forms;
     },
     getFormsDetails: async (names: string[]): Promise<IFormDetail[]> => {
-        const response = names.map((name) => axiosInstance.get(`/pokemon-form/${name}`)
+        const response = names.map((name) => axiosInstance.get(`pokemon-form/${name}`)
             .then(response => response.data));
         return Promise.all(response);
-    },
-    // getType:async (name:string):Promise<IType[]> =>{
-    //     const response=  await axiosInstance.get(`${urls.pokemons.base}/${name}`);
-    //     return response.data.types;
-    // }
+    }
 }
 
 

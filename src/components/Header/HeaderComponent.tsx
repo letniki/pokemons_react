@@ -7,12 +7,12 @@ const HeaderComponent = () => {
     }
 
     return (
-        <div className={styles.block}>
-            <Link to={'pokemon'}>Pokemons Page</Link>
-            <Link to={'pokemon/favourite'} > Fav</Link>
-            <Link to={'pokemon/search'}>Search Pokemon</Link>
-            {/*<li><Link to={'comments'}>Comments Page</Link></li>*/}
-        </div>
+        <nav className={styles.block}>
+            <Link className={styles.Link} to={'pokemon'}>Pokemons Page</Link>
+            <Link className={styles.Link} to={'pokemon/favourite'}><div className={styles.heart}>&#10084;</div></Link>
+            <Link className={styles.Link} to={'pokemon/search'}>Search Pokemon</Link>
+            <Link className={styles.Link} to={'https://github.com/letniki'}><img src="" alt=""/></Link>
+        </nav>
     );
 };
 

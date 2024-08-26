@@ -1,0 +1,41 @@
+
+.Block{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.BigBlock{
+    width:100%;
+    display: flex;
+    justify-content: center;
+
+}
+.h3{
+    border: none;
+    outline: none;
+    background-color: cornflowerblue;
+    height: 3vh;
+    padding:10px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.button{
+    border: none;
+    outline: none;
+    background-color: cornflowerblue;
+    padding:15px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    /*color: white;*/
+ }
+.button:hover{
+        background-color: #002ead;
+        transition: 0.7s;
+}

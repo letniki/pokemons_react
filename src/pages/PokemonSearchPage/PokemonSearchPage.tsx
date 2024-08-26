@@ -7,9 +7,9 @@ const PokemonSearchPage = () => {
 
     return (
         <div className={styles.block}>
-            <Link to={'byType'}>Search By Type</Link>
-            <Link to={'byAbility'}> Search By Ability</Link>
-            <Link to={'byName'}>Search By Name</Link>
+            <Link className={styles.Link} to={'byType'}>Search By Type</Link>
+            <Link className={styles.Link} to={'byAbility'}> Search By Ability</Link>
+            <Link className={styles.Link} to={'byName'}>Search By Name</Link>
         </div>
     );
 };

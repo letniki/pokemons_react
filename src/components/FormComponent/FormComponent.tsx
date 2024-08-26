@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/store";
 import FormInfoComponent from '../FormInfoComponent/FormInfoComponent';
 import PokemonImage from "../PokemonImage/PokemonImage";
 import {pokemonActions} from "../../redux/slices/pokemonsSlice";
-
+import styles from './Form.module.css'
 interface IProps {
     forms: IEvolutionForms
 }
@@ -25,22 +25,19 @@ const FormComponent:FC<IProps> = ({forms}) => {
         }
 
         return (
-            <div >
-                <div >
-                    <button onClick={() => handleButtonClick(chain.species.url)}>
-                        {chain.species.name}
+            <div className={styles.BigBlock}>
+                    <button className={styles.button} onClick={() => handleButtonClick(chain.species.url)}>
+                        <h3 className={styles.h3}>{chain.species.name.toUpperCase()}</h3>
+                        <PokemonImage url={chain.species.url}/>
                     </button>
-                </div>
-                {chain.evolves_to.length > 0 && (
-                    <div >
-                        {chain.evolves_to.map((evolution, index) => (
+                {chain.evolves_to.length > 0 && (chain.evolves_to.map((evolution, index) => (
                             <div key={index} >
-                                {renderEvolutionChain(evolution)}
+                                 {renderEvolutionChain(evolution)}
                             </div>
-                        ))}
-                    </div>
+                        ))
                 )}
             </div>
+
         );
     };
 
@@ -50,11 +47,10 @@ const FormComponent:FC<IProps> = ({forms}) => {
     }, [idForm, dispatch]);
 
     return (
-        <div>
+        <>
             {renderEvolutionChain(forms.chain)}
-            <hr/>
             {idForm && <FormInfoComponent form={evolution} />}
-        </div>
+        </>
     );
 };
 

@@ -8,12 +8,12 @@ import { useSearchParams } from 'react-router-dom';
 const PokemonsPage = () => {
     const [query] = useSearchParams({page: '1'})
     const dispatch = useAppDispatch();
-    let {results, error,previous, next} = useAppSelector(state => state.pokemonStore);
+    let {results,previous, next} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
         const currentPage = query.get('page');
         const page = currentPage ? Number(currentPage) : 1;
         dispatch(pokemonActions.loadPokemons({page}));
-    }, [query.get('page'), dispatch]);
+    }, [query, dispatch]);
     return (
         <div>
             {

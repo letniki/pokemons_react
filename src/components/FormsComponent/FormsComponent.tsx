@@ -4,7 +4,7 @@ import FormComponent from "../FormComponent/FormComponent";
 import { pokemonsService } from '../../services/api.service';
 import { IEvolution } from '../../models/IEvolution';
 import {AxiosError} from "axios";
-
+import styles from '../FormComponent/Form.module.css';
 interface IProps {
     id: string
 }
@@ -14,9 +14,15 @@ const FormsComponent: FC<IProps> = ({id}) => {
     const [evolutionChain, setEvolutionChain] = useState<IEvolution | null>(null);
     useEffect(() => {
         const fetchEvolutionChain = async () => {
-            if(id!=='0'){
+            if(id && id!=='0'){
+                try {
+                    console.log(id);
                     const response = await pokemonsService.getEvolutionChain(id);
                     setEvolutionChain(response);
+                }catch (e){
+                   const error = e as AxiosError;
+                    console.log(error?.response?.data);
+                }
             }
         };
         fetchEvolutionChain();
@@ -33,20 +39,21 @@ const FormsComponent: FC<IProps> = ({id}) => {
                     setForms(response);
                 } catch (e) {
                    const error = e as AxiosError;
-                    console.error(error?.response?.data);
+                    console.log(error?.response?.data);
                 }
             }
         };
         fetchForms();
     }, [evolutionChain]);
 
-
+    console.log(forms)
     return (
-        <div>
-            {forms && (
-                <FormComponent forms={forms} />)
+        <>
+            {forms && (<div className={styles.Block}>
+                <h2>EVOLUTION</h2>
+                <FormComponent forms={forms} /></div>)
             }
-        </div>
+</>
     );
 }
 

@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/store";
 import {pokemonActions} from "../../redux/slices/pokemonsSlice";
 import {Link} from "react-router-dom";
 import PokemonImage from "../PokemonImage/PokemonImage";
-
+import styles from './search.module.css';
 const SearchByAbility = () => {
     const [query, setQuery] = useState<string>('');
     const [submittedQuery, setSubmittedQuery] = useState<string>('');
@@ -22,18 +22,17 @@ const SearchByAbility = () => {
     }, [submittedQuery, dispatch]);
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmitHandler)}>
-                <input type="text" placeholder='Search Pokemons By Ability'
+            <form onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
+                <div>
+                <input className={styles.input} type="text" placeholder='SEARCH BY ABILITY'
                        {...register('ability')} value={query}
                        onChange={(e) => setQuery(e.target.value)}
-                />
-                <button type="submit">Search</button>
+                /></div>
+                <button type="submit" className={styles.button}>Search</button>
             </form>
-            <div>
-                {ability.name === submittedQuery  && <div>{ability.pokemon.map((pokemon,index) => <Link key={index} to={`/pokemon/${pokemon.pokemon.name}`}>
-                    <PokemonImage url={pokemon.pokemon.url}/>
-                    <h3>{pokemon.pokemon.name}</h3></Link>)}</div>}
-            </div>
+                {ability.name === submittedQuery  && <div className={styles.biggerBlock}>{ability.pokemon.map((pokemon,index) => <Link className={styles.Link} key={index} to={`/pokemon/${pokemon.pokemon.name}`}>
+                    <div className={styles.block}><PokemonImage url={pokemon.pokemon.url}/>
+                        <h3 className={styles.h3}>{pokemon.pokemon.name.toUpperCase()}</h3></div></Link>)}</div>}
         </div>
     );
 };

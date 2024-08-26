@@ -5,3 +5,17 @@
     align-items: center;
     justify-content: space-around;
 }
+.Link{
+    border:none;
+    outline: none;
+    background-color: cornflowerblue;
+    color: red;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 10px;
+}
+.Link:hover{
+    background: #002ead;
+    color:white;
+    transition: 0.7s
+}

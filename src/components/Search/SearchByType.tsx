@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import { IForm, ISearchByType } from "../../models/IForm";
+import { ISearchByType } from "../../models/IForm";
 import {useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { pokemonActions } from "../../redux/slices/pokemonsSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PokemonImage from "../PokemonImage/PokemonImage";
+import styles from "./search.module.css";
 
 const SearchByType = () => {
             const [submittedQuery, setSubmittedQuery] = useState<string>('');
@@ -14,11 +15,10 @@ const SearchByType = () => {
             handleSubmit
         } = useForm<ISearchByType>();
             const dispatch = useAppDispatch();
-            let {pokemon, type} = useAppSelector(state => state.pokemonStore);
+            let {type} = useAppSelector(state => state.pokemonStore);
 
             const onSubmitFormHandler = () => {
             setSubmittedQuery(query.toLowerCase());
-
         };
             useEffect(() => {
                 console.log(submittedQuery);
@@ -29,51 +29,18 @@ const SearchByType = () => {
             console.log(type);
             return (
             <div>
-            <form onSubmit={handleSubmit(onSubmitFormHandler)}>
+            <form onSubmit={handleSubmit(onSubmitFormHandler)} className={styles.form}>
             <div>
-                <input type='text' placeholder='Search Pokemons By Type' {...register('type')} value={query} onChange={(e) => setQuery(e.target.value)}/>
+                <input className={styles.input} type='text' placeholder='SEARCH BY TYPE' {...register('type')} value={query} onChange={(e) => setQuery(e.target.value)}/>
             </div>
-            <button type='submit'>Search</button>
+            <button type='submit' className={styles.button}>SEARCH</button>
         </form>
-        <div>
-            {type.name === submittedQuery && <div>{type.pokemon.map((pokemon,index)=><Link key={index} to={`/pokemon/${pokemon.pokemon.name}`}>
-               <PokemonImage url={pokemon.pokemon.url}/>
-            <h3>{pokemon.pokemon.name}</h3></Link>)}</div>}
-        </div>
 
-
-{/*// {pokemon.name === submittedQuery && (<div>*/}
-{/*//         <h1>{pokemon.name}</h1>*/}
-{/*//         <img src={`${pokemon.sprites.other.home.front_default}`} alt={pokemon.name}/>*/}
-{/*//         <div className="abilities">*/}
-{/*//             {*/}
-{/*//                 pokemon.abilities.map(poke => {*/}
-{/*//                     return (*/}
-{/*//                         <>*/}
-{/*//                             <div className="group">*/}
-{/*//                                 <h3>{poke.ability.name}</h3>*/}
-{/*//                             </div>*/}
-{/*//                         </>*/}
-{/*//                     )*/}
-{/*//                 })*/}
-{/*//             }*/}
-{/*//         </div>*/}
-{/*//         <div className="base-stat">*/}
-{/*//             {*/}
-{/*//                 pokemon.stats.map(poke => {*/}
-{/*//                     return (*/}
-{/*//                         <>*/}
-{/*//                             <h3>{poke.stat.name}:{poke.base_stat}</h3>*/}
-{/*//                         </>*/}
-{/*//                     )*/}
-{/*//                 })*/}
-{/*//             }*/}
-{/*//         </div>*/}
-{/*//         <div>{pokemon.types.map(type => <div>type: {type.type.name}</div>)}</div>*/}
-{/*//     </div>)*/}
-{/*// }*/}
-</div>
-);
+                {type.name === submittedQuery && <div className={styles.biggerBlock}>{type.pokemon.map((pokemon,index)=><Link className={styles.Link} key={index} to={`/pokemon/${pokemon.pokemon.name}`}>
+                    <div className={styles.block}><PokemonImage url={pokemon.pokemon.url}/>
+                        <h3 className={styles.h3}>{pokemon.pokemon.name.toUpperCase()}</h3></div></Link>)}</div>}
+            </div>
+            );
 };
 
 export default SearchByType;

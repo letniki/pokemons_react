@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import {IPokemon} from "../../models/IPokemon";
 import {Link} from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -10,7 +10,7 @@ interface IProps{
 }
 const PokemonsComponent:FC<IProps> = ({results}) => {
     const dispatch = useAppDispatch();
-    const {images, offset} = useAppSelector(state => state.pokemonStore);
+    const {images} = useAppSelector(state => state.pokemonStore);
     useEffect(() => {
         results.forEach(value => {
                 if (!images[value.name]) {
@@ -37,7 +37,7 @@ const PokemonsComponent:FC<IProps> = ({results}) => {
                 <Link className={styles.Link}
                       to={`/pokemon/${pokemon.name}`}>
                     <img className={styles.image} src={images[pokemon.name]} alt={pokemon.name}/>
-                    <h4>{pokemon.name}</h4>
+                    <h4>{pokemon.name.toUpperCase()}</h4>
                 </Link>
                 <button id='heart' className={styles.buttonBlock} onClick={() => saveToLocalStorage(pokemon.name)}>
                     <div className={styles.heart}>
