@@ -66,21 +66,7 @@ export const loadEvolution = createAsyncThunk  ('FormSlice/loadForm', async (id:
         return thunkAPI.rejectWithValue(error?.response?.data)
     }
 })
-// export const loadAbilitiesDetails = createAsyncThunk(
-//     'pokemonsSlice/loadAbilietiesDetails',
-//     async(name:string, thunkAPI) =>{
-//         try{
-//             const abilities = await pokemonsService.getAbilities(name);
-//             let abilitiesNames = abilities.map(ability => ability.ability.name);
-//             let abilitiesDetails =await pokemonsService.getAbilitiesDetails(abilitiesNames);
-//
-//             return  thunkAPI.fulfillWithValue({abilitiesDetails, abilities});
-//         }catch (e){
-//             const error = e as AxiosError;
-//             return thunkAPI.rejectWithValue(error?.response?.data);
-//         }
-//     }
-// )
+
 export const loadPokemonByAbility = createAsyncThunk(
     'pokemonsSlice/loadPokemonByAbility',
     async (ability: string, thunkAPI) => {

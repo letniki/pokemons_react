@@ -15,7 +15,7 @@ export const router = createBrowserRouter(
         {path: '/', element:<MainLayout/>,
             errorElement:<ErrorComponent/>,
             children:[
-                // {index:true, element:<HomePage/>},
+                {index:true, element:<PokemonsPage/>},
                 {path:'pokemon', element:<PokemonsPage/>},
                 {path:'pokemon/:name', element:<PokemonPageByName/>},
                 {path:'pokemon/search', element:<PokemonSearchPage/>},

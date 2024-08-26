@@ -44,10 +44,9 @@ const PokemonSearchPage = () => {
                 <h1 className={style.button}>MORE INFO ABOUT {pokemon.name.toUpperCase()}</h1></Link>
                 <div>
                     {pokemon.sprites.front_default && <img className={style.image} src={`${pokemon.sprites.front_default}`} alt={pokemon.name} />}
-                    {pokemon.sprites.front_shiny && <img className={style.image} src={`${pokemon.sprites.front_shiny}`} alt={pokemon.name} />}
                     {pokemon.sprites.back_default && <img className={style.image} src={`${pokemon.sprites.back_default}`} alt={pokemon.name} />}
+                    {pokemon.sprites.front_shiny && <img className={style.image} src={`${pokemon.sprites.front_shiny}`} alt={pokemon.name} />}
                     {pokemon.sprites.back_shiny && <img className={style.image} src={`${pokemon.sprites.back_shiny}`} alt={pokemon.name} />}
-                    {/*{pokemon.sprites.other.dream_world.front_default && <img className={style.image} src={`${pokemon.sprites.other.dream_world.front_default}`} alt={pokemon.name} />}*/}
                 </div>
                 <div className={style.bigBlock}>
                     <div className={style.detailsBlock}><h2>ABILITIES</h2>

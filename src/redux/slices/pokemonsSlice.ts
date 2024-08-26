@@ -1,5 +1,5 @@
 import {IPokemon} from "../../models/IPokemon";
-import {PayloadAction, createSlice, isRejected} from "@reduxjs/toolkit";
+import {createSlice, isRejected} from "@reduxjs/toolkit";
 import {
     loadEvolution,
     loadFormDetails,
@@ -9,7 +9,7 @@ import {
     loadPokemonImage,
     loadPokemons
 } from "../reducers/pokemon/pokemon.extra.reducers";
-import {IAbility, IForm, IPokemonByName, IStat, IType} from "../../models/IPokemonByName"
+import { IForm, IPokemonByName} from "../../models/IPokemonByName"
 import { IFormDetail } from "../../models/IFormDetail";
 import { ISearch } from "../../models/ISearch";
 import {IFormInfo} from "../../models/IFormInfo";
@@ -19,11 +19,8 @@ export type PokemonsState = {
     error:string,
     pokemon:IPokemonByName,
     images: {  [key: string]: string  };
-    offset: number;
-    favourite: string[];
     next: string | null;
     previous: string | null;
-    // stat: IStat[],
     formDetails:IFormDetail[];
     form:IForm[];
     ability:ISearch;
@@ -35,8 +32,6 @@ const initialState: PokemonsState = {
     results: [],
     error: '',
     images:{},
-    offset: 0,
-    favourite:[],
     next: null,
     previous:null,
     formDetails:[],
@@ -85,7 +80,7 @@ const initialState: PokemonsState = {
                     front_default: ''
                 },
                 home: {
-                    front_default: '', /*{todo this image}*/
+                    front_default: '',
                     front_shiny: '',
                 },
                 official_artwork: {
@@ -95,7 +90,7 @@ const initialState: PokemonsState = {
                 showdown: {
                     back_default: '',
                     back_shiny: '',
-                    front_default: '', //gifs
+                    front_default: '',
                     front_shiny: '',
                 }
             },
@@ -108,7 +103,6 @@ const initialState: PokemonsState = {
         name:'',
         pokemon:[]
     },
-    // stat:[],
     type:{
         name:'',
         pokemon:[]
@@ -119,46 +113,40 @@ export const pokemonsSlice = createSlice({
     name: "pokemonsSlice",
     initialState: initialState,
     reducers:{
-        setOffset:(state, action:PayloadAction<number>) =>{
-            state.offset=action.payload;
-        },
-        setFavourite:(state, action:PayloadAction<string>) =>{
-            state.favourite.push(action.payload);
-        }
+        // setOffset:(state, action:PayloadAction<number>) =>{
+        //     state.offset=action.payload;
+        // },
     },
-    extraReducers: builder =>{builder.addCase(loadPokemons.fulfilled, (state, action)=>{
-        const {results, next , previous} = action.payload;
-        state.results= results;
-        state.next = next;
-        state.previous = previous;
+    extraReducers: builder => {
+        builder
+            .addCase(loadPokemons.fulfilled, (state, action) => {
+                const {results, next, previous} = action.payload;
+                state.results = results;
+                state.next = next;
+                state.previous = previous;
 
-    }).addCase(loadPokemonByName.fulfilled, (state, action)=>{
-        state.pokemon=action.payload;
-    }).addCase(
-        loadFormDetails.fulfilled, (state, action) => {
-            const {formDetails, form} = action.payload as { formDetails: IFormDetail[]; form: IForm[] };
-            state.formDetails = formDetails;
-            state.form = form;
-        }
-    ) .addCase(loadEvolution.fulfilled, (state, action) => {
-        state.evolution = action.payload
-    })
-        .addCase(loadPokemonImage.fulfilled, (state, action) =>{
-        const { name, imageUrl } = action.payload as { name: string; imageUrl: string };
-        state.images[name] = imageUrl;
-        }).addCase(loadPokemonByType.fulfilled, (state, action) => {
+            }).addCase(loadPokemonByName.fulfilled, (state, action) => {
+            state.pokemon = action.payload;
+        }).addCase(
+            loadFormDetails.fulfilled, (state, action) => {
+                const {formDetails, form} = action.payload as { formDetails: IFormDetail[]; form: IForm[] };
+                state.formDetails = formDetails;
+                state.form = form;
+            }
+        ).addCase(loadEvolution.fulfilled, (state, action) => {
+            state.evolution = action.payload
+        })
+            .addCase(loadPokemonImage.fulfilled, (state, action) => {
+                const {name, imageUrl} = action.payload as { name: string; imageUrl: string };
+                state.images[name] = imageUrl;
+            }).addCase(loadPokemonByType.fulfilled, (state, action) => {
             state.type = action.payload;
         }).addCase(loadPokemonByAbility.fulfilled, (state, action) => {
             state.ability = action.payload;
         })
-        // .addCase(loadAbilitiesDetails.fulfilled, (state, action)=>{
-        //     const {abilitiesDetails, abilities} = action.payload as { abilitiesDetails: IAbilityDetail[]; abilities: IAbility[] };
-        //     state.abilitiesDetails = abilitiesDetails;
-        //     state.abilities = abilities;
-        // })
-        .addMatcher(isRejected(loadPokemons, loadPokemonByName), (state, action) =>{
-        state.error = action.payload as string;
-    })
+            .addMatcher(isRejected(loadPokemons, loadPokemonByName), (state, action) => {
+                state.error = action.payload as string;
+            })
     }
 });
 
