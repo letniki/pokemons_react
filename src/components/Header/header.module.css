@@ -8,8 +8,8 @@
     background-color: cornflowerblue;
 }
 .image{
-    width:40px;
-    height:40px;
+    width:45px;
+    height:45px;
     color: darkblue;
     border-radius: 50%;
 }
@@ -22,8 +22,8 @@
     transition: 0.7s;
 }
 .heart{
-    width:40px;
-    height:40px;
+    width:45px;
+    height:45px;
 }
 .heart:hover{
     transition:300ms;
