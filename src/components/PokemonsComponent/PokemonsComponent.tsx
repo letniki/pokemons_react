@@ -26,7 +26,6 @@ const PokemonsComponent:FC<IProps> = ({results}) => {
         }
         let oldFavorites = JSON.parse(localStorage['favorite']);
         oldFavorites.push(pokeName);
-        console.log(oldFavorites);
         localStorage.setItem('favorite', JSON.stringify(oldFavorites));
     }
     return (

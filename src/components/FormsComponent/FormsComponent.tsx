@@ -16,7 +16,6 @@ const FormsComponent: FC<IProps> = ({id}) => {
         const fetchEvolutionChain = async () => {
             if(id && id!=='0'){
                 try {
-                    console.log(id);
                     const response = await pokemonsService.getEvolutionChain(id);
                     setEvolutionChain(response);
                 }catch (e){
@@ -45,8 +44,6 @@ const FormsComponent: FC<IProps> = ({id}) => {
         };
         fetchForms();
     }, [evolutionChain]);
-
-    console.log(forms)
     return (
         <>
             {forms && (<div className={styles.Block}>

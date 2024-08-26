@@ -8,12 +8,10 @@ const FavouriteComponent:FC = () => {
     const {images} = useAppSelector(state => state.pokemonStore);
     const dispatch=useAppDispatch();
     let favorite = JSON.parse(localStorage['favorite']);
-    console.log(favorite);
     let favoriteNames:string[]=[];
     for (const favoriteElement of favorite) {
         if(!favoriteNames.includes(favoriteElement)){
             favoriteNames.push(favoriteElement);
-            console.log(favoriteNames);
             dispatch(pokemonActions.loadPokemonImage(favoriteElement));
         }
     }
